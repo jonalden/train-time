@@ -1,0 +1,33 @@
+.container {
+    border: 1px solid black;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    padding: 0px;
+}
+
+#header {
+    padding: 0px;
+    text-align: center;
+}
+
+.jumbotron {
+    margin-bottom: 0px;
+}
+
+h3 {
+    background: rgb(234,236,239);
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+
+}
+
+.form-group {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#submitButton {
+    margin-left: 46%;
+    margin-right: 47%;
+}
