@@ -9,15 +9,17 @@ function setTrainInfo(newTrainInfo, cb) {
     localforage.setItem("trainSchedules", newTrainInfo).then(cb);
 };
 
+
 document
     .getElementById("submitButton")
     .addEventListener("click", function (event) {
         event.preventDefault();
-        const trainName = document.getElementById("trainName").value.trim();
-        const destination = document.getElementById("destinantion").value.trim();
-        const firstTrain = document.getElementById("firstTrain").value.trim();
-        const frequency = document.getElementById("frequency").value.trim();
-        
+
+        let trainName = document.getElementById("trainName").value.trim();
+        let destination = document.getElementById("destinantion").value.trim();
+        let firstTrain = document.getElementById("firstTrain").value.trim();
+        let frequency = document.getElementById("frequency").value.trim();
+
 
         const trainData = {
             trainName: trainName,
@@ -25,6 +27,7 @@ document
             firstTrain: firstTrain,
             frequency: frequency
         }
+
         console.log(trainData);
 
         getTrainInfo(function (result) {
@@ -38,21 +41,18 @@ document
         })
     });
 
-const table = document.querySelector("table");
+getTrainInfo(function (result) {
+    console.log(result);
 
-setInterval(function () {
-    localforage
-        .getTrainInfo("trainSchedules")
-        .then(function (result) {
-            if(!result) {
-            result = [];
-            }
-            table.innerHTML = "";
-            for(let i = 0; i < result.length; i++) {
-                
-            }
-        })
-}, 1000);
+    for (let i = 0; i < result.length; i++) {
+        console.log(result[i]);
+        let contain = document.getElementById("tableBody");
+        contain.innerHTML += "<tr><td>B&O Railroad</td><td>Boardwalk</td><td>12 Minutes</td><td>5:40PM</td><td>17</td></tr>";
+        contain.innerHTML += "<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + firstTrain + "</td><td>" + frequency + "</td><td>" + Minutes + "</td></tr>";
+
+    }
+})
+
 
 
 
