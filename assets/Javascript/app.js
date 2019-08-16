@@ -1,14 +1,13 @@
 
 function getTrainInfo(cb) {
     localforage.getItem("trainSchedules").then(function (result) {
-        cb(result || []); //{name, score}
+        cb(result || []);
     });
 }
 
 function setTrainInfo(newTrainInfo, cb) {
     localforage.setItem("trainSchedules", newTrainInfo).then(cb);
 };
-
 
 document
     .getElementById("submitButton")
@@ -41,17 +40,66 @@ document
         })
     });
 
-getTrainInfo(function (result) {
+function updateDisplay(result) {
     console.log(result);
 
-    for (let i = 0; i < result.length; i++) {
-        console.log(result[i]);
-        let contain = document.getElementById("tableBody");
-        contain.innerHTML += "<tr><td>B&O Railroad</td><td>Boardwalk</td><td>12 Minutes</td><td>5:40PM</td><td>17</td></tr>";
-        contain.innerHTML += "<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + firstTrain + "</td><td>" + frequency + "</td><td>" + Minutes + "</td></tr>";
+    let contain = document.getElementById("tableBody");
+    contain.innerHTML = "";
 
+
+    for (let i = 0; i < result.length; i++) {
+        // console.log(result[i]);
+
+        let tFrequency = result[i].frequency;
+
+        // Time is 3:30 AM
+        let firstTime = result[i].firstTrain;
+
+        // First Time (pushed back 1 year to make sure it comes before current time)
+        let firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+        console.log(firstTimeConverted);
+
+        // Current Time
+        let currentTime = moment();
+        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+        // Difference between the times
+        let diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        console.log("DIFFERENCE IN TIME: " + diffTime);
+
+        // Time apart (remainder)
+        let tRemainder = diffTime % tFrequency;
+        console.log(tRemainder);
+
+        // Minute Until Train
+        let tMinutesTillTrain = tFrequency - tRemainder;
+        console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+        // Next Train
+        let nextTrain = moment().add(tMinutesTillTrain, "minutes");
+        console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
+
+        contain.innerHTML += "<tr><td>" + result[i].trainName +
+            "</td><td>" + result[i].destination + "</td><td>" + result[i].frequency +
+            "</td><td>" + nextTrain + "</td><td>" + tMinutesTillTrain + "</td></tr>";
     }
+}
+
+
+getTrainInfo(function (result) {
+    updateDisplay(result)
 })
+
+window.setInterval(function(){
+
+    getTrainInfo(function(result) {
+        updateDisplay(result);
+        console.log(result);
+    });
+},1000)
+
+
 
 
 

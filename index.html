@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/CSS/style.css">
+
     <title>Document</title>
 </head>
 
 <body>
+
+    <!-- header -->
     <div class="container" id="header">
         <div class="jumbotron">
             <h1 class="display-4">Train Schedule</h1>
@@ -18,6 +21,7 @@
         </div>
     </div>
 
+    <!-- table -->
     <div class="container">
         <table class="table" id="table">
             <h3>Current Train Schedule</h3>
@@ -56,6 +60,7 @@
         </table>
     </div>
 
+    <!-- form -->
     <div class="container">
         <h3>Add Train</h3>
         <form>
@@ -70,7 +75,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">First Train Time</label>
-                <input type="text" class="form-control" id="firstTrain" aria-describedby="emailHelp">
+                <input type="time" class="form-control" id="firstTrain" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Frequency</label>
@@ -81,7 +86,9 @@
         </form>
     </div>
 
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.3/localforage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="assets/Javascript/app.js"></script>
 </body>
 
